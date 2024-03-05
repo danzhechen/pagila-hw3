@@ -11,3 +11,16 @@
  * All of the subsequent problems in this homework can be solved with LATERAL JOINs
  * (or slightly less conveniently with subqueries).
  */
+SELECT DISTINCT c.first_name, c.last_name, r.title, r.rental_date
+FROM customer c
+LEFT JOIN LATERAL (
+  SELECT f.title, r.rental_date
+  FROM rental r
+  JOIN inventory i ON r.inventory_id = i.inventory_id
+  JOIN film f ON f.film_id = i.film_id
+  WHERE customer_id = c.customer_id
+  ORDER BY rental_date DESC
+  LIMIT 1
+) r ON true
+GROUP BY c.first_name, c.last_name, r.title, r.rental_date
+ORDER BY c.last_name, c.first_name;
