@@ -20,4 +20,4 @@ AND NOT EXISTS (
     AND fa2.actor_id = a.actor_id
 )
 GROUP BY a.last_name, a.first_name
-ORDER BY a.last_name, a.first_name;
+ORDER BY a.last_name ASC, a.first_name ASC;
