@@ -3,7 +3,7 @@
  * 1. have appeared in at least one movie in the "Children" category,
  * 2. but that have never appeared in any movie in the "Horror" category.
  */
-SELECT DISTINCT a.first_name, a.last_name
+SELECT a.first_name, a.last_name
 FROM actor a
 JOIN film_actor fa ON fa.actor_id = a.actor_id
 JOIN film f ON f.film_id = fa.film_id
@@ -19,4 +19,5 @@ AND NOT EXISTS (
     WHERE c2.name = 'Horror'
     AND fa2.actor_id = a.actor_id
 )
-ORDER BY a.last_name, a.first_name, a.actor_id;
+GROUP BY a.last_name, a.first_name
+ORDER BY a.last_name, a.first_name;
